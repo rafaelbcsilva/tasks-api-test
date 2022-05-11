@@ -29,7 +29,7 @@ public class ApiTest {
 	}
 	
 	@Test
-	public void NãodeveAdicionarTarefaInvalida() {
+	public void NÃ£odeveAdicionarTarefaInvalida() {
 		RestAssured.given().body("{\"task\": \"Teste Via API\",\"dueDate\": \"2020-05-11\" }")
 				.contentType(ContentType.JSON)
 				.when()
