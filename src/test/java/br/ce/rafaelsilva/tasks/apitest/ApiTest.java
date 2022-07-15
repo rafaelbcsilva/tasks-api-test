@@ -1,5 +1,6 @@
 package br.ce.rafaelsilva.tasks.apitest;
 
+import org.graalvm.compiler.lir.amd64.vector.AMD64VectorShuffle.Extract128Op;
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,14 +33,36 @@ public class ApiTest {
 	public void NãodeveAdicionarTarefaInvalida() {
 		RestAssured.given().body("{\"task\": \"Teste Via API\",\"dueDate\": \"2020-05-11\" }")
 				.contentType(ContentType.JSON)
-				.when()
+			.when()
 				.post("/todo")
-				.then()
-					.log().all()
+			.then()
+				.log().all()
 				.statusCode(400)
 				.body("message",CoreMatchers.is("Due date must not be in past"));
 
 	}
 	
+	@Test
+	public void deveRemoverTarefaComSucesso() {
+		//inserir
+		Integer id= RestAssured.given().body("{\"task\": \"Tarefa para Remoção\",\"dueDate\": \"2022-09-25\" }")
+					.contentType(ContentType.JSON)
+				.when()
+					.post("/todo")
+				.then()
+			//		.log().all()
+					.statusCode(201)
+					.extract().path("id");
+		
+		System.out.println(id);
+		
+		//remover
+		RestAssured.given()
+		.when()
+		 	.delete("/todo/"+ id)
+		.then()
+		 	.statusCode(204)
+		 	;
+	}
 	
 }
