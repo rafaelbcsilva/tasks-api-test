@@ -1,6 +1,6 @@
 package br.ce.rafaelsilva.tasks.apitest;
 
-import org.graalvm.compiler.lir.amd64.vector.AMD64VectorShuffle.Extract128Op;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
